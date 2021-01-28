@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Yummy!</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <!--[if lt IE 9]>
+      <script src="../static/js/vendor/html5shiv.min.js"></script>
+      <script src="../static/js/vendor/respond.min.js"></script>
+      <![endif]-->
+  </head>
+  <body>
+
+    <!-- Fixed navbar-->
+  <div class="backgroundImg">
+    <img src="../static/img/背景.jpg" alt=""/>
+  </div>
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+    <nav class="navbar navbar-default navbar-fixed-top probootstrap-navbar" style="background: black">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div style="position: relative; top: 30px;display: inline;">
+              <span id="pageName" style="font-size: 20px; color: whitesmoke; font-style:italic ;">餐厅</span>
+          </div>
+          <div style="position: relative; top: 30px;display: inline;left: 50px">
+            <a href="#">
+            <span style="font-size: 40px; color: greenyellow; font-style:italic ;font-weight: bold">Yummy！</span>
+            </a>
+          </div>
+        </div>
+
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+          <div style="position: relative; top: 30px;left: 100px">
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/restaurantOrder" >查看餐厅订单记录</a></li>
+            <li class="probootstra-cta-button"><a href="#"  class="btn" data-toggle="modal" data-target="#modify">修改餐厅信息</a></li>
+            <li class="probootstra-cta-button last"><a onclick="logout()" href="/" class="btn btn-ghost">退出</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+      </div>
+    </div>
+
+
+    <div class="row clearfix first">
+      <div class="back col-md-4 column">
+        <h2>我的菜单</h2>
+        <div style="margin-top: 30px " class="tabbable" id="tabs-537739">
+          <ul id="bar" style="margin-bottom: 10px " class="nav nav-tabs">
+            <li id="add">
+              <button  type="button" class="btn little" data-toggle="modal" data-target="#input"><i class="icon-plus2"></i></button>
+            </li>
+          </ul>
+          <div id="content" class="tab-content">
+          </div>
+        </div>
+        <button  style="margin-bottom: 20px" type="button" class="btn green" onclick="updateMenu()">保存菜单</button>
+      </div>
+    </div>
+
+
+    <!-- Modal signup -->
+    <div class="modal fadeInUp probootstrap-animated" id="modify" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog modal-md vertical-align-center">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
+            <div class="probootstrap-modal-flex">
+              <div class="probootstrap-modal-figure" style="background-image: url(../static/img/登录.jpg);"></div>
+              <div class="probootstrap-modal-content">
+                <div class="form-group">
+                  <span style="font-size: 30px; color: black; font-weight: bold">餐厅信息修改</span>
+                </div>
+                <form id="modifyForm" action="/Restaurant/modify" class="probootstrap-form" method="post">
+                  <div class="form-group">
+                  <span style="font-size: 18px">餐厅编号：</span>
+                  <span id="codeID" style="font-size: 18px"></span>
+                  </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">餐厅名：</span>
+                    <input id="restaurantName" name="name" type="text" class="form-control" placeholder="餐厅名">
+                  </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">密码：</span>
+                    <input id="password" name="password" type="password" class="form-control" placeholder="修改密码">
+                  </div>
+                  <div class="form-group">
+                    <input name="passwordCertain" type="password" class="form-control" placeholder="再次确认">
+                  </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">餐厅地址：</span>
+                    <input id="address" name="address" type="text" list="itemList" class="form-control" placeholder="餐厅地址">
+                    <datalist id="itemList">
+                      <option>南京大学仙林校区</option>
+                      <option>南京大学鼓楼校区</option>
+                      <option>南京市新街口</option>
+                      <option>南京市仙林中心</option>
+                    </datalist>
+                  </div>
+                  <div class="form-group">
+                    <div>
+                      <span style="font-size: 18px">餐厅类型：</span>
+                      <input id="type" name="type" type="text" list="itemList2" class="form-control" placeholder="餐厅类型">
+                    </div>
+                    <datalist id="itemList2">
+                      <option>快餐</option>
+                      <option>中餐</option>
+                      <option>西餐</option>
+                      <option>点心</option>
+                    </datalist>
+                  </div>
+                  <div class="form-group text-left">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input style="position:relative ;top: 30px" type="submit" class="btn btn-connect-twitter btn-primary btn-block" value="申请修改">
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal signup -->
+
+    //输入框
+    <div class="modal fade" id="input" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog modal-md vertical-align-center">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
+            <div class="probootstrap-modal-flex">
+              <div class="probootstrap-modal-content">
+                <div class="form-group">
+                  <span style="font-size: 30px; color: black; font-weight: bold">新类型</span>
+                </div>
+                <div class="form-group">
+                  <input id="name" type="text" class="form-control" placeholder="名字">
+                </div>
+                <div class="form-group text-left">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input id="commit" style="position:relative ;top: 30px" type="button" class="btn green" value="确认" data-dismiss="modal" onclick="addCategory()">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="../static/js/scripts.js"></script>
+    <script src="../static/js/restaurant.js"></script>
+  </body>
+</html>

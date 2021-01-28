@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Yummy!</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <!--[if lt IE 9]>
+      <script src="../static/js/vendor/html5shiv.min.js"></script>
+      <script src="../static/js/vendor/respond.min.js"></script>
+      <![endif]-->
+  </head>
+  <body>
+
+    <!-- Fixed navbar-->
+  <div class="backgroundImg">
+    <img src="../static/img/背景.jpg" alt=""/>
+  </div>
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+    <nav class="navbar navbar-default navbar-fixed-top probootstrap-navbar" style="background: black">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div style="position: relative; top: 30px;display: inline;">
+              <span id="pageName" style="font-size: 20px; color: whitesmoke; font-style:italic ;">你好，hh</span>
+          </div>
+          <div style="position: relative; top: 30px;display: inline;left: 50px">
+            <a href="#">
+            <span style="font-size: 40px; color: greenyellow; font-style:italic ;font-weight: bold">Yummy！</span>
+            </a>
+          </div>
+        </div>
+
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+          <div style="position: relative; top: 30px;left: 100px">
+          <form id="input" method="post" action="/User/searchRestaurant" class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input name="input" type="text" class="form-control" placeholder="搜索餐厅">
+            </div>
+            <button style="position: relative;left: 20px;" type="submit" class="search"><i style="font-size: 20px" class="icon-search"></i></button>
+          </form>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/userOrder">查看详细订单</a></li>
+            <li class="probootstra-cta-button"><a href="#"  class="btn" data-toggle="modal" data-target="#modify">修改个人信息</a></li>
+            <li class="probootstra-cta-button last"><a onclick="logout()" href="/" class="btn btn-ghost">退出</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+      </div>
+    </div>
+    <div id="content" class="row clearfix first">
+    </div>
+
+
+    <!-- Modal modify -->
+    <div class="modal fadeInUp probootstrap-animated" id="modify" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog modal-md vertical-align-center">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
+            <div class="probootstrap-modal-flex">
+              <div class="probootstrap-modal-figure" style="background-image: url(../static/img/login.jpg);"></div>
+              <div class="probootstrap-modal-content">
+                <div class="form-group">
+                  <span style="font-size: 30px; color: black; font-weight: bold">修改个人信息</span>
+                </div>
+                <form id="modifyForm" action="/User/modify" class="probootstrap-form" method="post">
+                  <div class="form-group">
+                    <span style="font-size: 18px">邮箱：</span>
+                    <input id="userName" name="userName" type="text" class="form-control" placeholder="邮箱" readonly>
+                  </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">密码：</span>
+                    <input id="password" name="password" type="password" class="form-control" placeholder="修改密码">
+                  </div>
+                  <div class="form-group">
+                    <input name="passwordCertain" type="password" class="form-control" placeholder="再次确认">
+                  </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">会员等级：</span>
+                    <span id="level" style="font-size: 18px">0</span>
+                  </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">余额/元：</span>
+                    <span id="balance" style="font-size: 18px">0</span>
+                  </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">姓名：</span>
+                  <input id="name" name="name" type="text" class="form-control" placeholder="姓名">
+                </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">电话：</span>
+                    <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" placeholder="电话">
+                  </div>
+                  <div class="form-group">
+                    <span style="font-size: 18px">地址：</span>
+                    <div id="address">
+                    </div>
+                    <datalist id="itemList">
+                      <option>南京大学仙林校区</option>
+                      <option>南京大学鼓楼校区</option>
+                      <option>南京市新街口</option>
+                      <option>南京市仙林中心</option>
+                    </datalist>
+                    <button type="button" class="addAddress" onclick="addAddress()"><i style="font-size: 20px"  class="icon-add-to-list"></i></button>
+                  </div>
+                  <div class="form-group text-left">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input style="position:relative ;top: 30px" type="submit" class="btn btn-connect-twitter btn-primary btn-block" value="修改信息" onclick="close()">
+                        <button style="position:relative ;top: 30px" type="button" class="btn btn-primary btn-block" onclick="deleteUser()">注销账号</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal modify -->
+
+
+    <script src="../static/js/scripts.js"></script>
+    <script src="../static/js/user.js"></script>
+  </body>
+</html>
